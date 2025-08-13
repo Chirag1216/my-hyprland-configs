@@ -28,12 +28,6 @@ This was my first major dive into system customization, and it served as a found
 
 ---
 
-### **Screenshot**
-
-![Screenshot of my Hyprland Rice](/home/blwnaway/Pictures/2025-07-30-175713_hyprshot.png)
-
----
-
 
 
 
