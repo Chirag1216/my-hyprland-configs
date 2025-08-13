@@ -40,3 +40,5 @@ This was my first major dive into system customization, and it served as a found
 
 
 
+# my-hyprland-configs
+First Arch linux rice 
