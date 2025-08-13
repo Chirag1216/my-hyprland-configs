@@ -1,0 +1,171 @@
+// -*- mode: jsonc -*-
+{
+    // "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    "height": 28, // Waybar height (to be removed for auto height)
+    "margin-bottom":19,
+    "width": 1600, // Waybar width
+    "spacing": 4, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "modules-left": [
+        "hyprland/workspaces",
+        "custom/media"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "network",
+        "battery",
+        "power-profiles-daemon",
+        "bluetooth"
+    ],
+
+"hyprland/workspaces": {
+	"format": "{name}",
+	"format-icons": {
+		"1": "",
+		"2": "",
+		"3": "",
+		"4": "",
+		"5": "",
+		"active": "",
+		"default": ""
+	},
+       "persistent-workspaces": {
+             "*": 5, // 5 workspaces by default on every monitor
+             "HDMI-A-1": 3 // but only three on HDMI-A-1
+       }
+},
+    //Original Clock
+    //"clock": {
+        // "timezone": "America/New_York",
+       // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+      //  "format-alt": "{:%Y-%m-%d}"
+    //},
+    //End of Orginal clock
+
+"clock": {
+    "interval": 1, // Update every second for current time
+    "format": "{:%H:%M}", // Your preferred time format
+    "format-alt": "{:%Y-%m-%d}", // Optional: Alt format when pressing Super/Mod key
+    "tooltip": true, // Enable tooltip
+    "tooltip-format": "<tt><small>{calendar}</small></tt>", // This is the key line for the calendar
+    "calendar": {
+        "mode": "month", // Show current month
+        "mode-mon-col": 3,
+        "weeks-pos": "right",
+        "on-scroll": 1, // Scroll by one month/year
+        "on-click-right": "mode", // Right-click to switch between month/year view
+        "format": {
+            "months": "<span color='#8be9fd'><b>{}</b></span>", // Cyan for months
+            "days": "<span color='#f8f8f2'>{}</span>", // White for days
+            "weeks": "<span color='#bd93f9'>W{}</span>", // Purple for week numbers
+            "weekdays": "<span color='#ff7f00'><b>{}</b></span>", // Orange for weekdays
+            "today": "<span color='#ff5555'><b><u>{}</u></b></span>" // Red and underlined for today
+        }
+    },
+    // Actions for scrolling through the calendar (optional)
+    "actions": {
+        "on-scroll-up": "shift_up",
+        "on-scroll-down": "shift_down"
+    }
+},
+
+
+
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% {icon}",
+        "interval":1,
+        "format-charging": "{capacity}% 󱊤",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "",
+        "performance": "",
+        "balanced": "",
+        "power-saver": ""
+      }
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}%  {format_source}",
+        "format-bluetooth-muted": "󰟎 {format_source}",
+        "format-muted": "{format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "bluetooth": {
+    "format": " {status}", // Default format when not connected to a battery device
+    "format-disabled": " Disabled",
+    "format-off": " Off",
+    "format-on": " On",
+    "format-connected": " {num_connections} connected",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%", // This is the key line
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_alias}",
+    "tooltip-format-connected-battery": "{controller_alias}\t{controller_address}\n\n{device_alias}: {device_battery_percentage}%",
+    "format-icons": {
+        "disabled": "󰂲",
+        "enabled": "",
+        "connected": "BT" // Or some other icon you prefer for connected
+    },
+    "format-battery-icons": { // Optional: icons based on battery level
+        "default": "",
+        "10": "󰤾 ",
+        "25": "󰤿 ",
+        "50": "󰥂 ",
+        "70": "󰥄 ",
+        "90": "󰥆 ",
+        "100": "󰥈 "
+    }
+    // "format-device-preference": ["Your Device Name"], // Optional: if you have multiple devices and want to prioritize one
+},
+    "custom/media": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    }
+}
